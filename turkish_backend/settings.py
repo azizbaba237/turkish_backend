@@ -14,8 +14,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ay%g)bn@1!zvbb^wz23-6+f7y9sex#vkw@)fz33h101)(#$_n('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
-DEBUG = True
+DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+#DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
@@ -83,30 +83,30 @@ WSGI_APPLICATION = 'turkish_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'turkishbackend$turkishbackend',
-#         'USER': 'turkishbackend',
-#         'PASSWORD': '',
-#         'HOST': 'turkishbackend.mysql.pythonanywhere-services.com',
-#         'PORT': '3306',
-#         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
-#     }
-# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'turkish_db',
-        'USER': 'root',
+        'NAME': 'turkishbackend$turkishbackend',
+        'USER': 'turkishbackend',
         'PASSWORD': '',
-        'HOST': 'localhost',
+        'HOST': 'turkishbackend.mysql.pythonanywhere-services.com',
         'PORT': '3306',
-        "OPTIONS": {
-            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
+        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'turkish_db',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#         "OPTIONS": {
+#             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+#         },
+#     }
+# }
 
 
 
