@@ -5,6 +5,11 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+class CategoryService(models.Model):
+    name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
+
 class Color(models.Model):
     name = models.CharField(max_length=50)
     hex_code = models.CharField(max_length=7, blank=True, null=True)
@@ -26,8 +31,23 @@ class Product(models.Model):
 class Service(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    category = models.ForeignKey(CategoryService, on_delete=models.SET_NULL, null=True, blank=True)
+    price = models.CharField(max_length=100, default="Sur devis")  
+    features = models.JSONField(default=list, blank=True)  
+    
     def __str__(self):
         return self.title
+    
+class ServiceImage(models.Model):
+    service = models.ForeignKey(Service, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='services/')
+    order = models.PositiveIntegerField(default=0)  # Pour ordonner les images
+    
+    class Meta:
+        ordering = ['order']
+    
+    def __str__(self):
+        return f"Image for {self.service.title}"
 
 class Contact(models.Model):
     name = models.CharField(max_length=255)

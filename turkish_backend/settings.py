@@ -3,7 +3,7 @@ import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
@@ -14,13 +14,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'django-insecure-ay%g)bn@1!zvbb^wz23-6+f7y9sex#vkw@)fz33h101)(#$_n('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+#DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
     # ➜ remplace par ton vrai sous-domaine PythonAnywhere
-    "https://turkishbackend.pythonanywhere.com/",
-]
+    "https://turkishbackend.pythonanywhere.com",
+] 
 
 
 # Application definition
@@ -50,13 +51,13 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://omri-turkish-construction.vercel.app/"
+    "https://omri-turkish-construction.vercel.app",
     "http://localhost:5173",  # ton frontend Vite
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://omri-turkish-construction.vercel.app/",
-    "https://turkishbackend.pythonanywhere.com/",
+    "https://omri-turkish-construction.vercel.app",
+    "https://turkishbackend.pythonanywhere.com",
 ]
 
 ROOT_URLCONF = 'turkish_backend.urls'
@@ -82,15 +83,28 @@ WSGI_APPLICATION = 'turkish_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'turkishbackend$turkishbackend',
+#         'USER': 'turkishbackend',
+#         'PASSWORD': '',
+#         'HOST': 'turkishbackend.mysql.pythonanywhere-services.com',
+#         'PORT': '3306',
+#         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'turkishbackend$turkishbackend',
-        'USER': 'turkishbackend',
+        'NAME': 'turkish_db',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'turkishbackend.mysql.pythonanywhere-services.com',
+        'HOST': 'localhost',
         'PORT': '3306',
-        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+        "OPTIONS": {
+            "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 
@@ -132,10 +146,9 @@ USE_TZ = True
 
 # STATIC/MEDIA pour la prod
 STATIC_ROOT = BASE_DIR / "staticfiles"   # dossier collecté en prod
-
 STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
