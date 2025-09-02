@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Service, Contact, Category, Color, CategoryService, ServiceImage
+from .models import Product, Service, Contact, Category, Color, CategoryService, ServiceImage, Testimonials
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -20,6 +20,7 @@ class ServiceImageSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     colors = serializers.StringRelatedField(many=True)
+    image = serializers.ImageField(use_url=True)
     class Meta:
         model = Product
         fields = '__all__'
@@ -44,6 +45,7 @@ class ColorSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'hex_code']
         
 class CategoryServiceSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField(use_url=True)
     class Meta:
         model = CategoryService
         fields = ['id', 'name']
@@ -52,3 +54,8 @@ class ServiceImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ServiceImage
         fields = ['id', 'image', 'order']
+        
+class TestimonialsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Testimonials
+        fields = ['id', 'name', 'text', 'rating']

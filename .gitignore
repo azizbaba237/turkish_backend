@@ -1,6 +1,5 @@
-if [ ! -f .gitignore ]; then
-    touch .gitignore
-fi
-"*.pyc" "*.pyo" 
-".python-version" 
-"__pycache__/" 
+*.pyc
+*.pyo
+.python-version
+__pycache__/
+.env

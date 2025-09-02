@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets
-from .models import Product, Service, Contact, Category
-from .serializers import ProductSerializer, ServiceSerializer, ContactSerializer, CategorySerializer
+from .models import Product, Service, Contact, Category, Testimonials
+from .serializers import ProductSerializer, ServiceSerializer, ContactSerializer, CategorySerializer, TestimonialsSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -18,3 +18,7 @@ class ContactViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    
+class TestimonialsViewSet(viewsets.ModelViewSet):
+    queryset = Testimonials.objects.all()
+    serializer_class = TestimonialsSerializer

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.admin import site
-from .models import Category, Color, Product, Service, Contact, CategoryService, ServiceImage
+from .models import Category, Color, Product, Service, Contact, CategoryService, ServiceImage, Testimonials
 
 
 class ServiceImageInline(admin.TabularInline):  # ou admin.StackedInline
@@ -18,3 +18,4 @@ admin.site.register(Service, ServiceAdmin)
 admin.site.register(Contact)
 admin.site.register(CategoryService)
 admin.site.register(ServiceImage)
+admin.site.register(Testimonials)

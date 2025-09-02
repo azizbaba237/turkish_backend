@@ -56,3 +56,11 @@ class Contact(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return f"{self.name} - {self.email}"
+
+class Testimonials(models.Model):
+    name = models.CharField(max_length=255)
+    text = models.TextField()
+    rating = models.PositiveIntegerField(default=5)
+    
+    def __str__(self):
+        return f"{self.name} - {self.rating} stars"

@@ -1,31 +1,28 @@
-from pathlib import Path
 import os
+from pathlib import Path
+from dotenv import load_dotenv
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+env_path = BASE_DIR / ".env"
+if env_path.exists():
+    load_dotenv(env_path)
 
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ay%g)bn@1!zvbb^wz23-6+f7y9sex#vkw@)fz33h101)(#$_n('
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DJANGO_DEBUG", "False") == "True"
-#DEBUG = True
+# ----------------------
+# SECURITY
+# ----------------------
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="insecure-key")
+DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
-    # ➜ remplace par ton vrai sous-domaine PythonAnywhere
-    "https://turkishbackend.pythonanywhere.com",
-] 
+    "https://omriturkishbackend.pythonanywhere.com",  # ton domaine PythonAnywhere
+]
 
-
-# Application definition
-
+# ----------------------
+# APPLICATIONS
+# ----------------------
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -33,9 +30,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Third-party apps
+    # Third-party
     'rest_framework',
     'corsheaders',
+    # Local apps
     'api',
 ]
 
@@ -50,16 +48,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ----------------------
+# CORS / CSRF
+# ----------------------
 CORS_ALLOWED_ORIGINS = [
     "https://omri-turkish-construction.vercel.app",
-    "http://localhost:5173",  # ton frontend Vite
+    "http://localhost:5173",  # frontend local
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://omri-turkish-construction.vercel.app",
-    "https://turkishbackend.pythonanywhere.com",
+    "https://omriturkishbackend.pythonanywhere.com",
 ]
 
+# ----------------------
+# URLS & WSGI
+# ----------------------
 ROOT_URLCONF = 'turkish_backend.urls'
 
 TEMPLATES = [
@@ -79,78 +83,77 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'turkish_backend.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+# ----------------------
+# DATABASES
+# ----------------------
+# if config("DJANGO_ENV", default="local") == "production":
+#     # Base de données sur PythonAnywhere
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'omriturkishbacke$default',
+#             'USER': 'omriturkishbacke',
+#             'PASSWORD': config("Bonjour123", default=""),
+#             'HOST': 'omriturkishbackend.mysql.pythonanywhere-services.com',
+#             'PORT': '3306',
+#             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+#         }
+#     }
+# else:
+#     # Base de données locale (XAMPP)
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.mysql',
+#             'NAME': 'turkish_db',
+#             'USER': 'root',
+#             'PASSWORD': '',
+#             'HOST': 'localhost',
+#             'PORT': '3306',
+#             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+#         }
+#     }
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'turkishbackend$turkishbackend',
-        'USER': 'turkishbackend',
-        'PASSWORD': '',
-        'HOST': 'turkishbackend.mysql.pythonanywhere-services.com',
-        'PORT': '3306',
+        'NAME': config("DB_NAME"),
+        'USER': config("DB_USER"),
+        'PASSWORD': config("DB_PASSWORD", default=""),
+        'HOST': config("DB_HOST", default="127.0.0.1"),
+        'PORT': config("DB_PORT", default="3306"),
         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
     }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'turkish_db',
-#         'USER': 'root',
-#         'PASSWORD': '',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#         "OPTIONS": {
-#             "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
-#         },
-#     }
-# }
 
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
+# ----------------------
+# PASSWORDS
+# ----------------------
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
+# ----------------------
+# INTERNATIONALIZATION
+# ----------------------
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
-# STATIC/MEDIA pour la prod
-STATIC_ROOT = BASE_DIR / "staticfiles"   # dossier collecté en prod
+# ----------------------
+# STATIC & MEDIA
+# ----------------------
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
+# ----------------------
+# DEFAULT FIELD
+# ----------------------
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
