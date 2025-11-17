@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from rest_framework import viewsets
-from .models import Product, Service, Contact, Category, Testimonials
-from .serializers import ProductSerializer, ServiceSerializer, ContactSerializer, CategorySerializer, TestimonialsSerializer
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from .models import Product, Service, Contact, Category, Testimonials, NewsletterSubscriber
+from .serializers import ProductSerializer, ServiceSerializer, ContactSerializer, CategorySerializer, TestimonialsSerializer, NewsletterSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -22,3 +23,19 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class TestimonialsViewSet(viewsets.ModelViewSet):
     queryset = Testimonials.objects.all()
     serializer_class = TestimonialsSerializer
+
+class NewsletterViewSet(viewsets.ModelViewSet):
+    queryset = NewsletterSubscriber.objects.all()
+    serializer_class = NewsletterSerializer
+
+    def create(self, request, *args, **kwargs):
+        email = request.data.get("email")
+
+        if NewsletterSubscriber.objects.filter(email=email).exists():
+            return Response(
+                {"message": "Cet email est déjà inscrit."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        return super().create(request, *args, **kwargs)
+

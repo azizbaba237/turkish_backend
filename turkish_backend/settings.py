@@ -17,7 +17,7 @@ DEBUG = config("DJANGO_DEBUG", default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     "localhost", "127.0.0.1",
-    "https://omriturkishbackend.pythonanywhere.com",  # ton domaine PythonAnywhere
+    "omriturkishbackend.pythonanywhere.com",
 ]
 
 # ----------------------
@@ -30,9 +30,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     # Third-party
     'rest_framework',
     'corsheaders',
+
     # Local apps
     'api',
 ]

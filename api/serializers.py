@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Service, Contact, Category, Color, CategoryService, ServiceImage, Testimonials
+from .models import Product, Service, Contact, Category, Color, CategoryService, ServiceImage, Testimonials, NewsletterSubscriber
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -59,3 +59,8 @@ class TestimonialsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Testimonials
         fields = ['id', 'name', 'text', 'rating']
+
+class NewsletterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewsletterSubscriber
+        fields = ["id", "email", "subscribed_at"]
