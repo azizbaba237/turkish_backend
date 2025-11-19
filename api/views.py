@@ -3,6 +3,8 @@ from rest_framework import viewsets, status
 from rest_framework.response import Response
 from .models import Product, Service, Contact, Category, Testimonials, NewsletterSubscriber
 from .serializers import ProductSerializer, ServiceSerializer, ContactSerializer, CategorySerializer, TestimonialsSerializer, NewsletterSerializer
+from rest_framework.permissions import IsAuthenticated
+from .permissions import IsEmployee
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -38,4 +40,8 @@ class NewsletterViewSet(viewsets.ModelViewSet):
             )
 
         return super().create(request, *args, **kwargs)
+
+
+class SomeViewSet(viewsets.ModelViewSet):
+    permission_classes = [IsAuthenticated, IsEmployee]
 
