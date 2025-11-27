@@ -5,6 +5,7 @@ from .views import (ProductViewSet
      ,ContactViewSet
      ,CategoryViewSet
      ,TestimonialsViewSet
+     ,CartViewSet
      ,NewsletterViewSet)
 from .views_auth import RegisterView, ProfileView, LogoutView
 from .views_token import CustomTokenObtainPairView
@@ -20,6 +21,8 @@ router.register(r'contact', ContactViewSet)
 router.register(r'categories', CategoryViewSet)
 router.register(r'testimonials', TestimonialsViewSet)
 router.register("newsletter", NewsletterViewSet)
+router.register(r'cart', CartViewSet, basename="cart")
+
 
 urlpatterns = [
      path('', include(router.urls)),
@@ -30,4 +33,5 @@ urlpatterns = [
     path('auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('auth/profile/', ProfileView.as_view(), name='auth_profile'),
     path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
+
 ]

@@ -15,6 +15,7 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_object(self):
+        # Retourne toujours l'utilisateur connecté
         return self.request.user
 
 class LogoutView(generics.GenericAPIView):

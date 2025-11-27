@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'rest_framework_simplejwt.token_blacklist',
+    'django_extensions',
 
     # Local apps
     'api',
@@ -115,44 +116,44 @@ WSGI_APPLICATION = 'turkish_backend.wsgi.application'
 # ----------------------
 # DATABASES
 # ----------------------
-# if config("DJANGO_ENV", default="local") == "production":
-#     # Base de données sur PythonAnywhere
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'omriturkishbacke$default',
-#             'USER': 'omriturkishbacke',
-#             'PASSWORD': config("Bonjour123", default=""),
-#             'HOST': 'omriturkishbackend.mysql.pythonanywhere-services.com',
-#             'PORT': '3306',
-#             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
-#         }
-#     }
-# else:
-#     # Base de données locale (XAMPP)
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.mysql',
-#             'NAME': 'turkish_db',
-#             'USER': 'root',
-#             'PASSWORD': '',
-#             'HOST': 'localhost',
-#             'PORT': '3306',
-#             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
-#         }
-#     }
+if config("DJANGO_ENV", default="local") == "production":
+     # Base de données sur PythonAnywhere
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.mysql',
+             'NAME': 'omriturkishbacke$default',
+             'USER': 'omriturkishbacke',
+             'PASSWORD': config("Bonjour123", default=""),
+             'HOST': 'omriturkishbackend.mysql.pythonanywhere-services.com',
+             'PORT': '3306',
+             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+         }
+     }
+else:
+     # Base de données locale (XAMPP)
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.mysql',
+         'NAME': config("DB_NAME"),
+         'USER': config("DB_USER"),
+         'PASSWORD': config("DB_PASSWORD", default=""),
+         'HOST': config("DB_HOST", default="127.0.0.1"),
+         'PORT': config("DB_PORT", default="3306"),
+         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+         }
+     }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config("DB_NAME"),
-        'USER': config("DB_USER"),
-        'PASSWORD': config("DB_PASSWORD", default=""),
-        'HOST': config("DB_HOST", default="127.0.0.1"),
-        'PORT': config("DB_PORT", default="3306"),
-        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': config("DB_NAME"),
+#        'USER': config("DB_USER"),
+#        'PASSWORD': config("DB_PASSWORD", default=""),
+#        'HOST': config("DB_HOST", default="127.0.0.1"),
+#        'PORT': config("DB_PORT", default="3306"),
+#        "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+#    }
+#}
 
 
 # ----------------------

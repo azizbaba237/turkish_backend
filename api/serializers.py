@@ -1,5 +1,16 @@
 from rest_framework import serializers
-from .models import Product, Service, Contact, Category, Color, CategoryService, ServiceImage, Testimonials, NewsletterSubscriber
+from .models import (Product
+    ,Service
+    ,Contact
+    ,Category
+    ,Color
+    ,CategoryService
+    ,ServiceImage
+    ,Testimonials
+    ,NewsletterSubscriber
+    ,Cart
+    ,CartItem
+    ,Product)
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -24,6 +35,28 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+
+class CartItemSerializer(serializers.ModelSerializer):
+    product = serializers.SerializerMethodField()
+
+    class Meta:
+        model = CartItem
+        fields = ["id", "product", "quantity", "color", "size"]
+
+    def get_product(self, obj):
+        return {
+            "id": obj.product.id,
+            "name": obj.product.name,
+            "price": obj.product.price,
+            "image": obj.product.image.url if obj.product.image else None
+        }
+
+class CartSerializer(serializers.ModelSerializer):
+    items = CartItemSerializer(many=True)
+
+    class Meta:
+        model = Cart
+        fields = ["id", "items"]
         
 class ServiceSerializer(serializers.ModelSerializer):
     category = CategoryServiceSerializer(read_only=True)  # afficher catégorie

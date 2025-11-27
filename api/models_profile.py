@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from .models import Product
 
 class Profile(models.Model):
     ROLE_CHOICES = (
@@ -10,8 +11,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="client")
     phone = models.CharField(max_length=30, blank=True, null=True)
-    # autres champs utiles
     created_at = models.DateTimeField(auto_now_add=True)
+
+    favorites = models.ManyToManyField(Product, blank=True, related_name="favorited_by")
 
     def __str__(self):
         return f"{self.user.username} - {self.role}"
