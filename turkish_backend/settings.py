@@ -59,11 +59,13 @@ MIDDLEWARE = [
 # ----------------------
 CORS_ALLOWED_ORIGINS = [
     "https://omri-turkish-construction.vercel.app",
+    "https://omri-turkish-construction-git-main-azizbaba237s-projects.vercel.app",
     "http://localhost:5173",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://omri-turkish-construction.vercel.app",
+    "https://omri-turkish-construction-git-main-azizbaba237s-projects.vercel.app",
     "https://omriturkishbackend.pythonanywhere.com",
 ]
 
