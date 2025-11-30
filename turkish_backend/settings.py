@@ -59,7 +59,7 @@ MIDDLEWARE = [
 # ----------------------
 CORS_ALLOWED_ORIGINS = [
     "https://omri-turkish-construction.vercel.app",
-    "http://localhost:5173",  # frontend local
+    "http://localhost:5173",
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -134,12 +134,12 @@ else:
      DATABASES = {
          'default': {
              'ENGINE': 'django.db.backends.mysql',
-         'NAME': config("DB_NAME"),
-         'USER': config("DB_USER"),
-         'PASSWORD': config("DB_PASSWORD", default=""),
-         'HOST': config("DB_HOST", default="127.0.0.1"),
-         'PORT': config("DB_PORT", default="3306"),
-         "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
+             'NAME': config("DB_NAME"),
+             'USER': config("DB_USER"),
+             'PASSWORD': config("DB_PASSWORD", default=""),
+             'HOST': config("DB_HOST", default="127.0.0.1"),
+             'PORT': config("DB_PORT", default="3306"),
+             "OPTIONS": {"init_command": "SET sql_mode='STRICT_TRANS_TABLES'"},
          }
      }
 
